@@ -1,6 +1,6 @@
 
 
-package src.module1;
+package module;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;

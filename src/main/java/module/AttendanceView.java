@@ -1,4 +1,4 @@
-package src.attendance;
+package module;
 
 import java.util.Scanner;
 

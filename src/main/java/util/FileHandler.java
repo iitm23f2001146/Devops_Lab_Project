@@ -1,10 +1,11 @@
+package util;
+import module.AttendanceManager;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 public class FileHandler {
@@ -59,7 +60,7 @@ public class FileHandler {
                     try {
                         int roll = Integer.parseInt(parts[1].trim());
                         String status = parts[2].trim();
-                        mgr.getAttendanceMap().computeIfAbsent(date, k -> new HashMap<>()).put(roll, status);
+                        mgr.markAttendanceRecord(date, roll, status);
                     } catch (NumberFormatException ex) {
                         // skip
                     }

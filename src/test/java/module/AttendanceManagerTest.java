@@ -1,4 +1,4 @@
-package src.module2;
+package module;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

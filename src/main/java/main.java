@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import module.AttendanceManager;
+import util.FileHandler;
 
 class OldMain {
     public static void main(String[] args) {

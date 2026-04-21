@@ -1,7 +1,7 @@
 
-package src.module1;
+package module;
 
-import model.Student;
+import model.*;
 import java.util.*;
 
 class StudentManagerLegacy {
