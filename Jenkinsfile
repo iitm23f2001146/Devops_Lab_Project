@@ -10,7 +10,7 @@ pipeline {
 
         stage('Clone') {
             steps {
-                git 'https://github.com/iitm23f2001146/Devops_Lab_Project.git'
+               git branch: 'main', url: 'https://github.com/iitm23f2001146/Devops_Lab_Project.git'
             }
         }
 
