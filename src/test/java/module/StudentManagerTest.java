@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import model.Student;
 
-public class StudentsManagerTest {
+public class StudentManagerTest {
 
     private StudentsManager sm;
 
