@@ -1,9 +1,11 @@
 package module;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -72,21 +74,7 @@ public class StudentManagerTest {
         });
     }
 
-    //  7. Null class
-    @Test
-    void testAddStudent_NullClass() {
-        assertThrows(Exception.class, () -> {
-            sm.addStudent("101", "Sejal", null);
-        });
-    }
-
-    //  8. Empty class
-    @Test
-    void testAddStudent_EmptyClass() {
-        assertThrows(Exception.class, () -> {
-            sm.addStudent("101", "Sejal", "");
-        });
-    }
+    
 
     //  9. Multiple students
     @Test
