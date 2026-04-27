@@ -40,15 +40,11 @@ pipeline {
     }
 
     post {
-        success {
-            mail to: 'sejal.chavan@cumminscollege.in',
-                 subject: 'Build Success',
-                 body: 'Your Jenkins build passed successfully!'
-        }
-        failure {
-            mail to: 'sejal.chavan@cumminscollege.in',
-                 subject: 'Build Failed',
-                 body: 'Your Jenkins build failed!'
-        }
+    success {
+        echo "Build Successful "
     }
+    failure {
+        echo "Build Failed "
+    }
+}
 }
