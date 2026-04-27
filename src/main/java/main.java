@@ -1,77 +1,85 @@
 import java.util.Scanner;
-import module.AttendanceManager;
-import util.FileHandler;
 
-class OldMain {
+import module.AttendanceManager;
+import module.StudentsManager;
+
+public class Main {
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        AttendanceManager attendanceManager = new AttendanceManager();
-        FileHandler fileHandler = new FileHandler();
 
-        int choice;
+        StudentsManager sm = new StudentsManager();
+        AttendanceManager am = new AttendanceManager(sm);
 
-        // Load data at start
-        fileHandler.loadStudents(attendanceManager);
-        fileHandler.loadAttendance(attendanceManager);
+        while (true) {
+            try {
+                System.out.println("\n===== ATTENDANCE MANAGEMENT SYSTEM =====");
+                System.out.println("1. Add Student");
+                System.out.println("2. Display Students");
+                System.out.println("3. Mark Attendance");
+                System.out.println("4. View Attendance of Student");
+                System.out.println("5. Exit");
+                System.out.print("Enter your choice: ");
 
-        do {
-            System.out.println("\n===== ATTENDANCE MANAGEMENT SYSTEM =====");
-            System.out.println("1. Add Student");
-            System.out.println("2. Display Students");
-            System.out.println("3. Mark Attendance");
-            System.out.println("4. View Attendance of Student");
-            System.out.println("5. Save Data");
-            System.out.println("6. Exit");
-            System.out.print("Enter your choice: ");
+                int choice = Integer.parseInt(sc.nextLine());
 
-            choice = sc.nextInt();
-            sc.nextLine(); // consume newline
+                switch (choice) {
 
-            switch (choice) {
+                    case 1:
+                        System.out.print("Enter Roll No: ");
+                        String roll = sc.nextLine();
 
-                case 1:
-                    System.out.print("Enter Roll No: ");
-                    int roll = sc.nextInt();
-                    sc.nextLine();
-                    System.out.print("Enter Name: ");
-                    String name = sc.nextLine();
+                        // ✅ Roll validation
+                        if (!roll.matches("\\d+")) {
+                            System.out.println("Invalid roll number (digits only).");
+                            break;
+                        }
 
-                    attendanceManager.addStudent(roll, name);
-                    break;
+                        System.out.print("Enter Name: ");
+                        String name = sc.nextLine();
 
-                case 2:
-                    attendanceManager.displayStudents();
-                    break;
+                        if (name.trim().isEmpty()) {
+                            System.out.println("Name cannot be empty.");
+                            break;
+                        }
 
-                case 3:
-                    System.out.print("Enter Date (dd-mm-yyyy): ");
-                    String date = sc.nextLine();
-                    attendanceManager.markAttendance(date);
-                    break;
+                        System.out.print("Enter Class: ");
+                        String cls = sc.nextLine();
 
-                case 4:
-                    System.out.print("Enter Roll No: ");
-                    int r = sc.nextInt();
-                    attendanceManager.viewAttendance(r);
-                    break;
+                        if (cls.trim().isEmpty()) {
+                            cls = "N/A";
+                        }
 
-                case 5:
-                    fileHandler.saveStudents(attendanceManager);
-                    fileHandler.saveAttendance(attendanceManager);
-                    System.out.println("Data saved successfully.");
-                    break;
+                        sm.addStudent(roll, name, cls);
+                        break;
 
-                case 6:
-                    System.out.println("Exiting program...");
-                    break;
+                    case 2:
+                        sm.displayStudents();
+                        break;
 
-                default:
-                    System.out.println("Invalid choice! Try again.");
+                    case 3:
+                        am.markAttendance();
+                        break;
+
+                    case 4:
+                        am.viewAttendance();
+                        break;
+
+                    case 5:
+                        System.out.println("Exiting system...");
+                        sc.close();
+                        return;
+
+                    default:
+                        System.out.println("Invalid choice!");
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Enter numbers only.");
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
             }
-
-        } while (choice != 6);
-
-        sc.close();
+        }
     }
 }
