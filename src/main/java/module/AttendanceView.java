@@ -1,69 +1,102 @@
 package module;
 
-import java.util.Scanner;
+import java.util.List;
 
 public class AttendanceView {
 
-    // Sample attendance data
-    static int[] studentIds = {101, 102, 103};
-    static String[][] attendanceRecords = {
-        {"2026-01-29", "Present"},
-        {"2026-01-29", "Absent"},
-        {"2026-01-29", "Present"}
-    };
+    // ---------- CORE LOGIC (TESTABLE) ----------
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static String viewByRoll(List<String[]> data, String roll) {
 
-        System.out.println("=== Student Attendance Viewing Module ===");
-        System.out.println("1. View attendance of one student");
-        System.out.println("2. View attendance of all students for a date");
-        System.out.print("Enter choice (1 or 2): ");
-        int choice = sc.nextInt();
-        sc.nextLine(); // consume newline
-
-        if (choice == 1) {
-            System.out.print("Enter student ID: ");
-            int id = sc.nextInt();
-            viewSingleStudent(id);
-        } else if (choice == 2) {
-            System.out.print("Enter date (YYYY-MM-DD): ");
-            String date = sc.nextLine();
-            viewAllStudents(date);
-        } else {
-            System.out.println("Invalid choice!");
+        if (roll == null || !roll.matches("\\d+")) {
+            throw new IllegalArgumentException("Invalid roll number");
         }
 
-        sc.close();
-    }
+        StringBuilder result = new StringBuilder();
 
-    // View one student attendance
-    static void viewSingleStudent(int studentId) {
-        boolean found = false;
-        for (int i = 0; i < studentIds.length; i++) {
-            if (studentIds[i] == studentId) {
-                System.out.println("Student ID: " + studentIds[i] + " | Attendance: " + attendanceRecords[i][1]);
-                found = true;
-                break;
+        for (String[] row : data) {
+            if (row.length >= 3 && row[1].equals(roll)) {
+                result.append(row[0]).append(" -> ").append(row[2]).append("\n");
             }
         }
-        if (!found) {
-            System.out.println("Student not found!");
+
+        if (result.length() == 0) {
+            return "No record found";
         }
+
+        return result.toString().trim();
     }
 
-    // View all students for a specific date
-    static void viewAllStudents(String date) {
-        System.out.println("Attendance for date: " + date);
-        boolean found = false;
-        for (int i = 0; i < studentIds.length; i++) {
-            if (attendanceRecords[i][0].equals(date)) {
-                System.out.println("Student ID: " + studentIds[i] + " | Attendance: " + attendanceRecords[i][1]);
-                found = true;
+    public static String viewByDate(List<String[]> data, String date) {
+
+        if (date == null || !date.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new IllegalArgumentException("Invalid date format");
+        }
+
+        StringBuilder result = new StringBuilder();
+
+        for (String[] row : data) {
+            if (row.length >= 3 && row[0].equals(date)) {
+                result.append(row[1]).append(" -> ").append(row[2]).append("\n");
             }
         }
-        if (!found) {
-            System.out.println("No attendance records found for this date.");
+
+        if (result.length() == 0) {
+            return "No record found";
         }
+
+        return result.toString().trim();
     }
 }
+
+
+
+
+// package module;
+
+// import java.util.List;
+// import java.util.Scanner;
+
+// import util.FileUtil;
+
+// public class AttendanceView {
+
+//     public static void main(String[] args) {
+
+//         Scanner sc = new Scanner(System.in);
+
+//         while (true) {
+//             System.out.println("\n1. View by Roll");
+//             System.out.println("2. View by Date");
+//             System.out.println("3. Exit");
+
+//             int ch = Integer.parseInt(sc.nextLine());
+
+//             if (ch == 3) break;
+
+//             List<String[]> data = FileUtil.readAll();
+
+//             switch (ch) {
+
+//                 case 1:
+//                     System.out.print("Roll: ");
+//                     String r = sc.nextLine();
+
+//                     data.stream()
+//                             .filter(x -> x[1].equals(r))
+//                             .forEach(x -> System.out.println(x[0] + " -> " + x[2]));
+//                     break;
+
+//                 case 2:
+//                     System.out.print("Date: ");
+//                     String d = sc.nextLine();
+
+//                     data.stream()
+//                             .filter(x -> x[0].equals(d))
+//                             .forEach(x -> System.out.println(x[1] + " -> " + x[2]));
+//                     break;
+//             }
+//         }
+//     }
+// }
+
