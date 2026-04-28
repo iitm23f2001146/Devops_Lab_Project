@@ -110,7 +110,7 @@ public class Main {
                         System.out.print("Enter Roll No: ");
                         String roll = sc.nextLine();
 
-                        // ✅ Roll validation
+                        // Roll validation
                         if (!roll.matches("\\d+")) {
                             System.out.println("Invalid roll number (digits only).");
                             break;
