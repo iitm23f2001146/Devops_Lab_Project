@@ -39,3 +39,4 @@ Creates a separate branch
 Works on one module
 Raises pull requests
 
+testing - junit
